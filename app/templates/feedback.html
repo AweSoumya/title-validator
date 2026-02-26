@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback - TitleVerify AI</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fffbea, #fff8d6, #fff3b0);
+        }
+
+        /* HEADER */
+        .header {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            color: #333;
+            padding: 25px 40px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8b6f00;
+        }
+
+        .nav {
+            margin-top: 15px;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: #8b6f00;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: #b08900;
+            left: 0;
+            bottom: -5px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* MAIN */
+        .main {
+            display: flex;
+            justify-content: center;
+            padding: 70px 20px;
+        }
+
+        /* CARD */
+        .card {
+            background: rgba(255,255,255,0.85);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            color: #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .card-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #8b6f00;
+        }
+
+        /* FORM */
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea, select {
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #f3e8a5;
+            font-size: 14px;
+            background: #fffdf2;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #eab308;
+        }
+
+        textarea {
+            resize: none;
+            min-height: 100px;
+        }
+
+        /* BUTTON */
+        .primary-btn {
+            padding: 14px;
+            background: #eab308;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: 600;
+        }
+
+        .primary-btn:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #8b6f00;
+            padding: 12px 18px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">🤖 TitleVerify AI</div>
+
+    <nav class="nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/feedback" class="nav-link active">Feedback</a>
+    </nav>
+</header>
+
+<main class="main">
+    <section class="card">
+
+        <h2 class="card-title">We Value Your Feedback 💬</h2>
+
+        <form id="feedbackForm" class="feedback-form">
+
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+
+            <select id="rating" required>
+                <option value="">Rate Us</option>
+                <option>⭐⭐⭐⭐⭐ Excellent</option>
+                <option>⭐⭐⭐⭐ Good</option>
+                <option>⭐⭐⭐ Average</option>
+                <option>⭐⭐ Poor</option>
+            </select>
+
+            <textarea id="message" placeholder="Write your feedback..." required></textarea>
+
+            <button type="submit" class="primary-btn">
+                Submit Feedback
+            </button>
+
+        </form>
+
+    </section>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+    const form = document.getElementById("feedbackForm");
+    const toast = document.getElementById("toast");
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const feedbackData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            rating: document.getElementById("rating").value,
+            message: document.getElementById("message").value
+        };
+
+        console.log("Feedback Submitted:", feedbackData);
+
+        form.reset();
+        showToast("Thank you for your feedback! 🎉");
+    });
+
+    function showToast(message) {
+        toast.textContent = message;
+        toast.classList.remove("hidden");
+
+        setTimeout(() => {
+            toast.classList.add("hidden");
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
